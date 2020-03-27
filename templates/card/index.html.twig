@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CardController!{% endblock %}
+
+{% block body %}
+
+    <div>
+        <ul style="list-style: none;display:flex;">
+            <li><button class="filterType" id="Type0">Trainer</button></li>
+            <li><button class="filterType" id="Type1">Fire</button></li>
+            <li><button class="filterType" id="Type2">Water</button></li>
+            <li><button class="filterType" id="Type3">Ligthning</button></li>
+            <li><button class="filterType" id="Type4">Psychic</button></li>
+            <li><button class="filterType" id="Type5">Fighting</button></li>
+            <li><button class="filterType" id="Type6">Darkness</button></li>
+            <li><button class="filterType" id="Type7">Colorless</button></li>
+            <li><button class="filterType" id="Type8">Grass</button></li>
+            <li><button class="filterType" id="Type9">Fairy</button></li>
+            <li><button class="filterType" id="Type10">Metal</button></li>
+            <li><button class="filterType" id="Type11">Dragon</button></li>
+        </ul>
+    </div>
+    <div id="content"></div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script>
+    const constructList = (arr) => {
+        $('#content').empty();
+        arr.forEach((item)=>{
+            $('#content').append($(`<img id="${item.id}" src="${item.imageUrl}"/>`));
+        });
+    }
+    const sendId = (e) => {
+        console.log(e.target.id);
+        const form = new FormData();
+        form.append('typeId', e.target.id);
+        axios.post("{{ path ('getByTypeId') }}", form)
+        .then((res) => {
+            console.log(res.data);
+            constructList(res.data);
+
+        })
+        .catch((error) => console.log(error));
+    };
+</script>
+<script>
+    const x = document.getElementsByTagName('button');
+
+    for(let i = 0; i < x.length; i++){
+        x[i].addEventListener("click", sendId);
+    }
+</script>
+{% endblock %}

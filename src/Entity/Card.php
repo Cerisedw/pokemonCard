@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CardRepository")
@@ -108,6 +109,11 @@ class Card
      */
     private $abilities;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Deck", mappedBy="cards")
+     */
+    private $decks;
+
 
 
     public function __construct(array $arr)
@@ -115,6 +121,7 @@ class Card
         $this->hydrate($arr);
         $this->types = new ArrayCollection();
         $this->attacks = new ArrayCollection();
+        $this->decks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -373,6 +380,34 @@ class Card
     public function setAbilities(?Ability $abilities): self
     {
         $this->abilities = $abilities;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Deck[]
+     */
+    public function getDecks(): Collection
+    {
+        return $this->decks;
+    }
+
+    public function addDeck(Deck $deck): self
+    {
+        if (!$this->decks->contains($deck)) {
+            $this->decks[] = $deck;
+            $deck->addCard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDeck(Deck $deck): self
+    {
+        if ($this->decks->contains($deck)) {
+            $this->decks->removeElement($deck);
+            $deck->removeCard($this);
+        }
 
         return $this;
     }
