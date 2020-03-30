@@ -43,22 +43,23 @@
             <li><button class="filterType" id="Type11">Dragon</button></li>
         </ul>
     </div>
+    <div class="pagination" id='max{{nmbpage + 1}}'>
+        <a style='display:none;' id='back'>&laquo;</a>
+        {% for i in 0.. nmbpage %}
+            {% if  i == 0 %}
+            <a class="active" id='page{{i + 1}}'>{{i + 1}}</a>
+            {% else %}
+            <a  id='page{{i + 1}}'>{{i + 1}}</a>
+            {% endif %}
+        {% endfor %}
+        <a style='display:block;' id='after'>&raquo;</a>
+    </div>
     <div id="content">
         {% for item in cartes %}
         <img id="{{item.id}}" src="{{ item.imageUrl }}" />
         {% endfor %}
     </div>
-<div class="pagination">
-    <a style='display:none;' id='back'>&laquo;</a>
-    {% for i in 0.. nmbpage %}
-        {% if  i == 0 %}
-        <a class="active" id='page{{i + 1}}'>{{i + 1}}</a>
-        {% else %}
-        <a  id='page{{i + 1}}'>{{i + 1}}</a>
-        {% endif %}
-    {% endfor %}
-    <a  id='after'>&raquo;</a>
-</div>
+
 
 {% endblock %}
 
@@ -87,6 +88,8 @@ const sendId = (e) => {
 
 const sendIdPage = (e) => {
     const form = new FormData();
+    const maxPage = parseInt(($('.pagination').attr('id')).slice(3));
+    console.log(maxPage);
     let idTarget;
     if(e.target.id === "back"){
         const idNoSlice = $('.active').attr('id');
@@ -95,8 +98,9 @@ const sendIdPage = (e) => {
         const idNoSlice2 = $('.active').attr('id');
         idTarget = parseInt(idNoSlice2.slice(4)) + 1;
     }else {
-        idTarget = e.target.id.slice(4);
+        idTarget = parseInt(e.target.id.slice(4));
     }
+    console.log(idTarget);
     form.append('page', idTarget);
     axios.post("{{ path ('getAllByPage') }}", form)
     .then((res) => {
@@ -104,7 +108,13 @@ const sendIdPage = (e) => {
         $(`#page${idTarget}`).addClass("active");
         if(idTarget === 1) {
             $('#back').css('display', 'none');
-        }else{
+            $('#after').css('display', 'block');
+        }else if(idTarget === maxPage){
+            $('#after').css('display', 'none');
+            $('#back').css('display', 'block');
+        }
+        else{
+            $('#after').css('display', 'block');
             $('#back').css('display', 'block');
         }
         constructList(res.data);
