@@ -18,9 +18,10 @@ class CardController extends AbstractController
         $query = $em->createQuery("SELECT card FROM App\Entity\Card card");
         $twentycartes = $query->setMaxResults(20)->setFirstResult(0)->getResult();
         // $cartes = $query->getResult();
+        $nmbMaxPage = $this->getNmbPageMax(20);
         // dd($nmbpage);
         // dd($cartes);
-        return $this->render('card/index.html.twig', ["cartes" => $twentycartes]);
+        return $this->render('card/index.html.twig', ["cartes" => $twentycartes, "nmbpage" => $nmbMaxPage]);
     }
     /**
      * @Route("/card/getByType", name="getByTypeId")
@@ -56,7 +57,7 @@ class CardController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery("SELECT card FROM App\Entity\Card card");
         $nmbMaxPage = count($query->getResult()) / $imgPerPage;
-        return (int)$nmbMaxPage+1;
+        return (int)$nmbMaxPage;
     }
 
 }

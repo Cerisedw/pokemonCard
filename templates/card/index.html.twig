@@ -49,13 +49,14 @@
         {% endfor %}
     </div>
 <div class="pagination">
-    <a  id='back'>&laquo;</a>
-    <a  class="active"  id='page1'>1</a>
-    <a  id='page2'>2</a>
-    <a  id='page3'>3</a>
-    <a  id='page4'>4</a>
-    <a  id='page5'>5</a>
-    <a  id='page6'>6</a>
+    <a style='display:none;' id='back'>&laquo;</a>
+    {% for i in 0.. nmbpage %}
+        {% if  i == 0 %}
+        <a class="active" id='page{{i + 1}}'>{{i + 1}}</a>
+        {% else %}
+        <a  id='page{{i + 1}}'>{{i + 1}}</a>
+        {% endif %}
+    {% endfor %}
     <a  id='after'>&raquo;</a>
 </div>
 
@@ -101,6 +102,11 @@ const sendIdPage = (e) => {
     .then((res) => {
         $('.pagination a').removeClass("active");
         $(`#page${idTarget}`).addClass("active");
+        if(idTarget === 1) {
+            $('#back').css('display', 'none');
+        }else{
+            $('#back').css('display', 'block');
+        }
         constructList(res.data);
     }).catch((error) => console.log(error));
 };
