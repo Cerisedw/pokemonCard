@@ -15,11 +15,12 @@ class CardController extends AbstractController
     public function getAll()
     {
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery("SELECT card, type FROM App\Entity\Card card JOIN card.types type");
-        $cartes = $query->getResult();
-
+        $query = $em->createQuery("SELECT card FROM App\Entity\Card card");
+        $twentycartes = $query->setMaxResults(20)->setFirstResult(0)->getResult();
+        // $cartes = $query->getResult();
+        // dd($nmbpage);
         // dd($cartes);
-        return $this->render('card/index.html.twig', ["cartes" => $cartes]);
+        return $this->render('card/index.html.twig', ["cartes" => $twentycartes]);
     }
     /**
      * @Route("/card/getByType", name="getByTypeId")
@@ -36,9 +37,26 @@ class CardController extends AbstractController
             $queryDB->setParameter(':typeId', $id);
             $cartes = $queryDB->getArrayResult();    
         }
-        
         // dd($cartes);
         return new JsonResponse($cartes);
+    }
+    
+    /**
+     * @Route("/card/page/using", name="getAllByPage")
+     */
+    public function usePage(Request $req){
+        $page = (int)$req->request->get("page") - 1;
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT card FROM App\Entity\Card card");
+        $cartes = $query->setMaxResults(20)->setFirstResult(20 * $page)->getArrayResult();
+        return new JsonResponse($cartes);
+    }
+
+    private function getNmbPageMax(int $imgPerPage){
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT card FROM App\Entity\Card card");
+        $nmbMaxPage = count($query->getResult()) / $imgPerPage;
+        return (int)$nmbMaxPage+1;
     }
 
 }
