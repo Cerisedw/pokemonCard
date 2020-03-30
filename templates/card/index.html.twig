@@ -73,8 +73,38 @@
         $('#content').append($(`<img id="${item.id}" src="${item.imageUrl}"/>`));
     });
 }
+
+const getIdTarget = (e) => {
+    let targetId;
+    if(e.target.id === "back"){
+        const idNoSlice = $('.active').attr('id');
+        targetId = parseInt(idNoSlice.slice(4)) - 1;
+    }else if(e.target.id === "after"){
+        const idNoSlice2 = $('.active').attr('id');
+        targetId = parseInt(idNoSlice2.slice(4)) + 1;
+    }else {
+        targetId = parseInt(e.target.id.slice(4));
+    }
+    return targetId;
+};
+
+const pageChangeDisplay = (idPage, pageMax) => {
+    $('.pagination a').removeClass("active");
+    $(`#page${idPage}`).addClass("active");
+    if(idPage === 1) {
+        $('#back').css('display', 'none');
+        $('#after').css('display', 'block');
+    }else if(idPage === pageMax){
+        $('#after').css('display', 'none');
+        $('#back').css('display', 'block');
+    }
+    else{
+        $('#after').css('display', 'block');
+        $('#back').css('display', 'block');
+    }
+};
+
 const sendId = (e) => {
-    console.log(e.target.id);
     const form = new FormData();
     form.append('typeId', e.target.id);
     axios.post("{{ path ('getByTypeId') }}", form)
@@ -89,34 +119,11 @@ const sendId = (e) => {
 const sendIdPage = (e) => {
     const form = new FormData();
     const maxPage = parseInt(($('.pagination').attr('id')).slice(3));
-    console.log(maxPage);
-    let idTarget;
-    if(e.target.id === "back"){
-        const idNoSlice = $('.active').attr('id');
-        idTarget = parseInt(idNoSlice.slice(4)) - 1;
-    }else if(e.target.id === "after"){
-        const idNoSlice2 = $('.active').attr('id');
-        idTarget = parseInt(idNoSlice2.slice(4)) + 1;
-    }else {
-        idTarget = parseInt(e.target.id.slice(4));
-    }
-    console.log(idTarget);
+    const idTarget = getIdTarget(e);
     form.append('page', idTarget);
     axios.post("{{ path ('getAllByPage') }}", form)
     .then((res) => {
-        $('.pagination a').removeClass("active");
-        $(`#page${idTarget}`).addClass("active");
-        if(idTarget === 1) {
-            $('#back').css('display', 'none');
-            $('#after').css('display', 'block');
-        }else if(idTarget === maxPage){
-            $('#after').css('display', 'none');
-            $('#back').css('display', 'block');
-        }
-        else{
-            $('#after').css('display', 'block');
-            $('#back').css('display', 'block');
-        }
+        pageChangeDisplay(idTarget, maxPage);
         constructList(res.data);
     }).catch((error) => console.log(error));
 };
