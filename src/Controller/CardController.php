@@ -53,6 +53,20 @@ class CardController extends AbstractController
         return new JsonResponse($cartes);
     }
 
+    
+    /**
+     * @Route("/card/{id}", name="cardInfo")
+     */
+    public function infoCard(int $id){
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT card, type FROM App\Entity\Card card JOIN card.types type WHERE card.id = :id");
+        $query->setParameter(':id', $id);
+        $carte = $query->getArrayResult();
+        dd($carte);
+        return $this->render('card/cardinfo.html.twig', ["cartes" => $twentycartes, "nmbpage" => $nmbMaxPage]);
+    }
+
+
     private function getNmbPageMax(int $imgPerPage){
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery("SELECT card FROM App\Entity\Card card");
