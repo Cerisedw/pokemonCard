@@ -55,11 +55,11 @@ class CardController extends AbstractController
 
     
     /**
-     * @Route("/card/{id}", name="cardInfo")
+     * @Route("/card/{id}", options={"expose"=true}, name="cardInfo")
      */
     public function infoCard(int $id){
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery("SELECT card, type FROM App\Entity\Card card JOIN card.types type WHERE card.id = :id");
+        $query = $em->createQuery("SELECT card, type, attack, weakness FROM App\Entity\Card card JOIN card.types type JOIN card.attacks attack JOIN card.weakness weakness WHERE card.id = :id");
         $query->setParameter(':id', $id);
         $carte = $query->getArrayResult();
         dd($carte);

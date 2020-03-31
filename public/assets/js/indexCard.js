@@ -2,7 +2,8 @@
 const constructList = (arr) => {
     $('#content').empty();
     arr.forEach((item)=>{
-        $('#content').append($(`<img id="${item.id}" src="${item.imageUrl}"/>`));
+        const url = Routing.generate('cardInfo', {'id': item.id});
+        $('#content').append($(`<a href='${url}' ><img id="${item.id}" src="${item.imageUrl}"/></a>`));
     });
 }
 
@@ -77,5 +78,4 @@ $.makeArray(li).forEach((item) => {
 });
 
 $('.dropdown-trigger').dropdown();
-
 
