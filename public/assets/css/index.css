@@ -1,0 +1,14 @@
+nav{
+  padding: 0 20px;
+}
+.container{
+  width:90%;
+}
+.listbutton{
+  list-style: none;
+  display:flex;
+  flex-wrap: wrap;
+}
+/* .listbutton li{
+  padding: 10px;
+} */

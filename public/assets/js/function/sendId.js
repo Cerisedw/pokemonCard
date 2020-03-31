@@ -3,7 +3,8 @@ import {constructList} from './constructList';
 export const sendId = (e) => {
     const form = new FormData();
     form.append('typeId', e.target.id);
-    axios.post("{{ path ('getByTypeId') }}", form)
+    let url = Routing.generate('getByTypeId');
+    axios.post(url, form)
     .then((res) => {
         constructList(res.data);
         $('.pagination').empty();

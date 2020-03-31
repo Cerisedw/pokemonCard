@@ -3,13 +3,30 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <link rel="stylesheet" href="{{ asset ('assets/css/materialize/materialize.min.css') }}">
+            <link rel="stylesheet" href="{{ asset ('assets/css/index.css') }}">
+        {% endblock %}
     </head>
     <body>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="{{path ('card')}}" class="brand-logo">Card</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="sass.html">Sass</a></li>
+                    <li><a href="badges.html">Components</a></li>
+                    <li><a href="collapsible.html">JavaScript</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
         {% block body %}{% endblock %}
+        </div>
         {% block javascripts %}
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="{{ asset('assets/js/materialize/materialize.min.js') }}"></script>
         {% endblock %}
     </body>
 </html>

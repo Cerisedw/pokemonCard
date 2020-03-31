@@ -2,143 +2,53 @@
 
 {% block title %}Hello CardController!{% endblock %}
 {% block stylesheets %}
-<style>
-.pagination {
-  display: inline-block;
-}
-
-.pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  cursor:pointer;
-}
-
-.pagination a.active {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.pagination a:hover:not(.active) {background-color: #ddd;}
-</style>
-
+{{ parent() }}
 {% endblock %}
-
 {% block body %}
 
-    <div>
-        <ul style="list-style: none;display:flex;">
-            <li><button class="filterType" id="Type0">Trainer</button></li>
-            <li><button class="filterType" id="Type1">Fire</button></li>
-            <li><button class="filterType" id="Type2">Water</button></li>
-            <li><button class="filterType" id="Type3">Ligthning</button></li>
-            <li><button class="filterType" id="Type4">Psychic</button></li>
-            <li><button class="filterType" id="Type5">Fighting</button></li>
-            <li><button class="filterType" id="Type6">Darkness</button></li>
-            <li><button class="filterType" id="Type7">Colorless</button></li>
-            <li><button class="filterType" id="Type8">Grass</button></li>
-            <li><button class="filterType" id="Type9">Fairy</button></li>
-            <li><button class="filterType" id="Type10">Metal</button></li>
-            <li><button class="filterType" id="Type11">Dragon</button></li>
-        </ul>
-    </div>
-    <div class="pagination" id='max{{nmbpage + 1}}'>
-        <a style='display:none;' id='back'>&laquo;</a>
-        {% for i in 0.. nmbpage %}
-            {% if  i == 0 %}
-            <a class="active" id='page{{i + 1}}'>{{i + 1}}</a>
-            {% else %}
-            <a  id='page{{i + 1}}'>{{i + 1}}</a>
-            {% endif %}
-        {% endfor %}
-        <a style='display:block;' id='after'>&raquo;</a>
-    </div>
-    <div id="content">
-        {% for item in cartes %}
-        <img id="{{item.id}}" src="{{ item.imageUrl }}" />
-        {% endfor %}
+    <div class="row">
+        <div class="col s12">
+                <a href="{{path ('card')}}" class="waves-effect waves-teal btn-flat">All</a>
+            <ul class="listbutton">
+                <li><a class="waves-effect waves-teal btn-flat" id="Type0">Trainer</a></li>
+                <li><a class="waves-effect waves-teal btn-flat" id="Type1">Fire</a></li>
+                <li><a class="waves-effect waves-teal btn-flat" id="Type2">Water</a></li>
+                <li><a class="waves-effect waves-teal btn-flat" id="Type3">Ligthning</a></li>
+                <li><a class="waves-effect waves-teal btn-flat" id="Type4">Psychic</a></li>
+                <li><a class="waves-effect waves-teal btn-flat" id="Type5">Fighting</a></li>
+                <li><a class="waves-effect waves-teal btn-flat" id="Type6">Darkness</a></li>
+                <li><a class="waves-effect waves-teal btn-flat" id="Type7">Colorless</a></li>
+                <li><a class="waves-effect waves-teal btn-flat" id="Type8">Grass</a></li>
+                <li><a class="waves-effect waves-teal btn-flat" id="Type9">Fairy</a></li>
+                <li><a class="waves-effect waves-teal btn-flat" id="Type10">Metal</a></li>
+                <li><a class="waves-effect waves-teal btn-flat" id="Type11">Dragon</a></li>
+            </ul>
+        </div>
+        <div class"col s12">
+            <ul class="pagination" id='max{{nmbpage + 1}}'>
+                <li class="waves-effect disabled"><a><i class="material-icons" id='back'>chevron_left</i></a></li>
+                {% for i in 0.. nmbpage %}
+                    {% if  i == 0 %}
+                    <li class="active waves-effect"><a id='page{{i + 1}}'>{{i + 1}}</a></li>
+                    {% else %}
+                    <li class="waves-effect"><a id='page{{i + 1}}'>{{i + 1}}</a></li>
+                    {% endif %}
+                {% endfor %}
+                <li class="waves-effect"><a><i class="material-icons" id='after'>chevron_right</i></a></li>
+            </ul>
+            <div id="content">
+                {% for item in cartes %}
+                <img id="{{item.id}}" src="{{ item.imageUrl }}" />
+                {% endfor %}
+            </div>
+        </div>
     </div>
 
 
 {% endblock %}
-
 {% block javascripts %}
 {{ parent() }}
-{# <script src="{{ asset ('/assets/js/filtreAjax.js') }}"></script> #}
-<script>
-    const constructList = (arr) => {
-    $('#content').empty();
-    arr.forEach((item)=>{
-        $('#content').append($(`<img id="${item.id}" src="${item.imageUrl}"/>`));
-    });
-}
-
-const getIdTarget = (e) => {
-    let targetId;
-    if(e.target.id === "back"){
-        const idNoSlice = $('.active').attr('id');
-        targetId = parseInt(idNoSlice.slice(4)) - 1;
-    }else if(e.target.id === "after"){
-        const idNoSlice2 = $('.active').attr('id');
-        targetId = parseInt(idNoSlice2.slice(4)) + 1;
-    }else {
-        targetId = parseInt(e.target.id.slice(4));
-    }
-    return targetId;
-};
-
-const pageChangeDisplay = (idPage, pageMax) => {
-    $('.pagination a').removeClass("active");
-    $(`#page${idPage}`).addClass("active");
-    if(idPage === 1) {
-        $('#back').css('display', 'none');
-        $('#after').css('display', 'block');
-    }else if(idPage === pageMax){
-        $('#after').css('display', 'none');
-        $('#back').css('display', 'block');
-    }
-    else{
-        $('#after').css('display', 'block');
-        $('#back').css('display', 'block');
-    }
-};
-
-const sendId = (e) => {
-    const form = new FormData();
-    form.append('typeId', e.target.id);
-    axios.post("{{ path ('getByTypeId') }}", form)
-    .then((res) => {
-        constructList(res.data);
-        $('.pagination').empty();
-
-    })
-    .catch((error) => console.log(error));
-};
-
-const sendIdPage = (e) => {
-    const form = new FormData();
-    const maxPage = parseInt(($('.pagination').attr('id')).slice(3));
-    const idTarget = getIdTarget(e);
-    form.append('page', idTarget);
-    axios.post("{{ path ('getAllByPage') }}", form)
-    .then((res) => {
-        pageChangeDisplay(idTarget, maxPage);
-        constructList(res.data);
-    }).catch((error) => console.log(error));
-};
-
-</script>
-<script>
-    const x = document.getElementsByTagName('button');
-
-    for(let i = 0; i < x.length; i++){
-        x[i].addEventListener("click", sendId);
-    }
-
-    const a = document.getElementsByTagName('a');
-    for(let i = 0; i<a.length; i++){
-        a[i].addEventListener("click", sendIdPage);
-    }
-</script>
+<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+<script src="{{ asset ('assets/js/indexCard.js') }}"></script>
 {% endblock %}

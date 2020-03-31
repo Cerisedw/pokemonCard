@@ -24,7 +24,7 @@ class CardController extends AbstractController
         return $this->render('card/index.html.twig', ["cartes" => $twentycartes, "nmbpage" => $nmbMaxPage]);
     }
     /**
-     * @Route("/card/getByType", name="getByTypeId")
+     * @Route("/card/getByType", options={"expose"=true}, name="getByTypeId")
      */
     public function getByType(Request $req)
     {
@@ -43,7 +43,7 @@ class CardController extends AbstractController
     }
     
     /**
-     * @Route("/card/page/using", name="getAllByPage")
+     * @Route("/card/page/using", options={"expose"=true}, name="getAllByPage")
      */
     public function usePage(Request $req){
         $page = (int)$req->request->get("page") - 1;

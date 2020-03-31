@@ -36,7 +36,8 @@ export const sendIdPage = (e) => {
     const maxPage = parseInt(($('.pagination').attr('id')).slice(3));
     const idTarget = getIdTarget(e);
     form.append('page', idTarget);
-    axios.post("{{ path ('getAllByPage') }}", form)
+    let url = Routing.generate('getAllByPage');
+    axios.post(url, form)
     .then((res) => {
         pageChangeDisplay(idTarget, maxPage);
         constructList(res.data);
