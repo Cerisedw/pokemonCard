@@ -1,4 +1,4 @@
-import { constructList, pageChangeDisplay, getIdTarget } from "./mesFonctions2";
+import { constructList, pageChangeDisplay, getIdTarget } from "./mesFonctions2.js";
 
 export const sendIdPage = (e) => {
     const form = new FormData();

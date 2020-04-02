@@ -1,4 +1,4 @@
-import { sendId, sendIdPage } from "./fonction/mesFonctions1";
+import { sendId, sendIdPage } from "./fonction/mesFonctions1.js";
 
 const abutton = $('.listbutton a');
 $.makeArray(abutton).forEach((item) => {
