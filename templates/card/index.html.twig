@@ -50,6 +50,5 @@
 {{ parent() }}
 <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-<script src="{{ asset ('assets/js/indexCard.js') }}"></script>
-<script src="{{ asset ('assets/js/cardInfo.js') }}"></script>
+<script type="module" src="{{ asset ('assets/js/indexCard.js') }}"></script>
 {% endblock %}
