@@ -15,7 +15,7 @@
                 <a href="{{path ('card')}}" class="brand-logo">Card</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     {% if app.user %}
-                    <li><a class="aProfilNav" href="#"><img class="imgProfilNav" src="/assets/img/{{ app.user.img }}" /></a></li>
+                    <li><a class="aProfilNav" href="{{ path('profil', {id: app.user.id}) }}"><img class="imgProfilNav" src="/assets/img/{{ app.user.img }}" /></a></li>
                     <li><a href="{{ path('app_logout') }}">LogOff</a></li>
                     {% else %}
                     <li><a href="{{ path('app_register') }}">Register</a></li>

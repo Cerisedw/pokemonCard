@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+<h2>{{ app.user.pseudo }}</h2>
+<img src="/assets/img/{{ app.user.img }}" />
+<p>{{ app.user.email }}
+{% endblock %}
