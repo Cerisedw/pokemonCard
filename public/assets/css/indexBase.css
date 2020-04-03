@@ -9,6 +9,16 @@ nav{
   display:flex;
   flex-wrap: wrap;
 }
+.imgProfilNav{
+  max-height: 50px;
+  margin-top: 5px;
+}
+
+.aProfilNav{
+  max-height: 64px;
+}
 /* .listbutton li{
   padding: 10px;
 } */
+
+
