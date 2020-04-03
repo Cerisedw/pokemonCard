@@ -28,8 +28,14 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            // pour le moment on en met une par défault
-            $user->setImg('pokeball-default.png');
+            $img = $user->getImg();
+            // dd($img);
+            $nomImg = md5(uniqid()) . "." . $img->guessExtension();
+            $img->move('assets/img', $nomImg);
+            $user->setImg($nomImg);
+            if(!$form->get('img')->getData()){
+                $user->setImg('pokeball-default.png');
+            }
             // dd($user);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
