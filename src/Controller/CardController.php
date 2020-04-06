@@ -59,11 +59,24 @@ class CardController extends AbstractController
      */
     public function infoCard(int $id){
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery("SELECT card, type, attack, weakness FROM App\Entity\Card card JOIN card.types type JOIN card.attacks attack JOIN card.weakness weakness WHERE card.id = :id");
+        $query = $em->createQuery("SELECT card, type, attack, weakness, typeweak, cost FROM App\Entity\Card card JOIN card.types type JOIN card.attacks attack JOIN attack.cost cost JOIN card.weakness weakness JOIN weakness.typeweak typeweak WHERE card.id = :id");
         $query->setParameter(':id', $id);
         $carte = $query->getArrayResult();
-        dd($carte);
-        return $this->render('card/cardinfo.html.twig', ["cartes" => $twentycartes, "nmbpage" => $nmbMaxPage]);
+
+        $query2 = $em->createQuery("SELECT card, abilities FROM App\Entity\Card card JOIN card.abilities abilities WHERE card.id = :id2");
+        $query2->setParameter(':id2', $id);
+        if ($query2->getArrayResult()){
+            $ability = $query2->getArrayResult()["0"]["abilities"];
+        }
+        else{
+            $ability = null;
+        }
+        // $weakId = $carte["0"]["weakness"]["id"];
+        // $query2 = $em->createQuery("SELECT weakness, typeweak FROM App\Entity\Weakness weakness JOIN weakness.typeweak typeweak WHERE weakness.id = :idW ");
+        // $query2->setParameter(':idW', $weakId);
+        // $weakness = $query2->getArrayResult();
+        // dd($carte);
+        return $this->render('card/cardinfo.html.twig', ["carte" => $carte["0"], "ability" => $ability]);
     }
 
 
