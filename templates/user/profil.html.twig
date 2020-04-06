@@ -3,7 +3,21 @@
 {% block title %}Profil{% endblock %}
 
 {% block body %}
-<h2>{{ app.user.pseudo }}</h2>
-<img src="/assets/img/{{ app.user.img }}" />
-<p>{{ app.user.email }}
+<div class="row">
+    <div class="col s12 m8">
+        <h2>{{ app.user.pseudo }}</h2>
+        <img src="/assets/img/{{ app.user.img }}" />
+        <p>{{ app.user.email }}</p>
+    </div>
+    <div class="col s12 m4">
+        {% if decks %}
+        <h2>Mes Decks :</h2>
+        <ul>
+        {% for deck in decks %}
+            <li>{{ deck.nom }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
