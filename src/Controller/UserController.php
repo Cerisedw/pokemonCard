@@ -19,7 +19,7 @@ class UserController extends AbstractController
 
         // dd($this->getUser());
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery("SELECT deck, card FROM App\Entity\Deck deck JOIN deck.cards card WHERE deck.idUser = :id");
+        $query = $em->createQuery("SELECT deck FROM App\Entity\Deck deck WHERE deck.idUser = :id");
         $query->setParameter(':id', $id);
         $decks = $query->getArrayResult();
 

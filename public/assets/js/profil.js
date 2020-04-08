@@ -2,7 +2,7 @@ const displayForm = () => {
     if($('#updateImg').hasClass('displayNone')){
         $('#updateImg').removeClass("displayNone");
         $('#updateImg').addClass("display");
-        $('#btnUpdateImg').text("Hide Form");
+        $('#btnUpdateImg').text("Cancel");
     }else{
         $('#updateImg').removeClass("display");
         $('#updateImg').addClass("displayNone");

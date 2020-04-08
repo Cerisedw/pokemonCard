@@ -11,7 +11,7 @@
             <a id="btnUpdateImg" class="waves-effect waves-light btn blue darken-2">Change Picture</a>
             <div id="updateImg" class="displayNone">
                 {{ form_start (form) }}
-                {{ form_widget (form) }}
+                        {{ form_widget (form) }}
                 <input type="submit" value="Envoyer">
                 {{ form_end (form) }}
             </div>
@@ -27,7 +27,7 @@
         {% endfor %}
         </ul>
         {% endif %}
-        <a href="{{ path('deck-create', {idUser: app.user.id}) }}" class="waves-effect waves-light btn blue darken-2">Create new deck</a>
+        <a href="{{ path('deck-create') }}" class="waves-effect waves-light btn blue darken-2">Create new deck</a>
     </div>
 </div>
 {% endblock %}
