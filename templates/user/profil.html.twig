@@ -7,6 +7,15 @@
     <div class="col s12 m8">
         <h2>{{ app.user.pseudo }}</h2>
         <img src="/assets/img/{{ app.user.img }}" />
+        <div>
+            <a id="btnUpdateImg" class="waves-effect waves-light btn blue darken-2">Change Picture</a>
+            <div id="updateImg" class="displayNone">
+                {{ form_start (form) }}
+                {{ form_widget (form) }}
+                <input type="submit" value="Envoyer">
+                {{ form_end (form) }}
+            </div>
+        </div>
         <p>{{ app.user.email }}</p>
     </div>
     <div class="col s12 m4">
@@ -18,6 +27,12 @@
         {% endfor %}
         </ul>
         {% endif %}
+        <a href="{{ path('deck-create', {idUser: app.user.id}) }}" class="waves-effect waves-light btn blue darken-2">Create new deck</a>
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }} 
+<script src="{{ asset ('assets/js/profil.js') }}"></script>
 {% endblock %}

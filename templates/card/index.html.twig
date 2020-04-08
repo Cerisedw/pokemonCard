@@ -6,20 +6,20 @@
 
     <div class="row">
         <div class="col s12">
-            <a href="{{path ('card')}}" class="waves-effect waves-teal btn-flat">All</a>
+            <a href="{{path ('card')}}" class="waves-effect waves-teal btn-small blue darken-2">All</a>
             <ul class="listbutton">
-                <li><a class="waves-effect waves-teal btn-flat" id="Type0">Trainer</a></li>
-                <li><a class="waves-effect waves-teal btn-flat" id="Type1">Fire</a></li>
-                <li><a class="waves-effect waves-teal btn-flat" id="Type2">Water</a></li>
-                <li><a class="waves-effect waves-teal btn-flat" id="Type3">Ligthning</a></li>
-                <li><a class="waves-effect waves-teal btn-flat" id="Type4">Psychic</a></li>
-                <li><a class="waves-effect waves-teal btn-flat" id="Type5">Fighting</a></li>
-                <li><a class="waves-effect waves-teal btn-flat" id="Type6">Darkness</a></li>
-                <li><a class="waves-effect waves-teal btn-flat" id="Type7">Colorless</a></li>
-                <li><a class="waves-effect waves-teal btn-flat" id="Type8">Grass</a></li>
-                <li><a class="waves-effect waves-teal btn-flat" id="Type9">Fairy</a></li>
-                <li><a class="waves-effect waves-teal btn-flat" id="Type10">Metal</a></li>
-                <li><a class="waves-effect waves-teal btn-flat" id="Type11">Dragon</a></li>
+                <li><a class="waves-effect btn-flat" id="Type0">Trainer</a></li>
+                <li><a class="waves-effect btn-flat" id="Type1">Fire</a></li>
+                <li><a class="waves-effect btn-flat" id="Type2">Water</a></li>
+                <li><a class="waves-effect btn-flat" id="Type3">Ligthning</a></li>
+                <li><a class="waves-effect btn-flat" id="Type4">Psychic</a></li>
+                <li><a class="waves-effect btn-flat" id="Type5">Fighting</a></li>
+                <li><a class="waves-effect btn-flat" id="Type6">Darkness</a></li>
+                <li><a class="waves-effect btn-flat" id="Type7">Colorless</a></li>
+                <li><a class="waves-effect btn-flat" id="Type8">Grass</a></li>
+                <li><a class="waves-effect btn-flat" id="Type9">Fairy</a></li>
+                <li><a class="waves-effect btn-flat" id="Type10">Metal</a></li>
+                <li><a class="waves-effect btn-flat" id="Type11">Dragon</a></li>
             </ul>
         </div>
         <div class"col s12">
@@ -45,8 +45,6 @@
 
 {% endblock %}
 {% block javascripts %}
-{{ parent() }}
-<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
-<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+{{ parent() }} 
 <script src="{{ asset ('assets/js/indexCard.js') }}"></script>
 {% endblock %}

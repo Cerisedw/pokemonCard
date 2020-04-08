@@ -10,6 +10,8 @@ nav{
   display:flex;
   flex-wrap: wrap;
 }
+
+
 .imgProfilNav{
   max-height: 50px;
   margin-top: 5px;
@@ -22,4 +24,9 @@ nav{
   padding: 10px;
 } */
 
-
+.display{
+  display:block;
+}
+.displayNone{
+  display:none;
+}

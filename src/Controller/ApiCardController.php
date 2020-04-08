@@ -21,7 +21,7 @@ class ApiCardController extends AbstractController
     {
         //pour les tables intermédiaires qui ont des valeurs, il faut faire une entité pour la table intermédiaire 
         $client = HttpClient::create();
-        $res = $client->request ('GET', 'https://api.pokemontcg.io/v1/cards?setCode=sma');
+        $res = $client->request ('GET', 'https://api.pokemontcg.io/v1/cards?setCode=sm9');
         $cards = $res->ToArray();
         // dd($cards["cards"]);
         $cartes = $this->apiToArrCardObject($cards["cards"]);

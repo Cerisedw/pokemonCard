@@ -10,11 +10,12 @@
         {% endblock %}
     </head>
     <body>
-        <nav>
-            <div class="nav-wrapper">
+        <nav class="blue darken-2">
+            <div class="nav-wrapper ">
                 <a href="{{path ('card')}}" class="brand-logo">Card</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     {% if app.user %}
+                    <li><a href="{{ path('deck-create', {idUser: app.user.id}) }}">Create Deck</a>
                     <li><a class="aProfilNav" href="{{ path('profil', {id: app.user.id}) }}"><img class="imgProfilNav" src="/assets/img/{{ app.user.img }}" /></a></li>
                     <li><a href="{{ path('app_logout') }}">LogOff</a></li>
                     {% else %}
@@ -28,6 +29,8 @@
         {% block body %}{% endblock %}
         </div>
         {% block javascripts %}
+        <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="{{ asset('assets/js/materialize/materialize.min.js') }}"></script>
