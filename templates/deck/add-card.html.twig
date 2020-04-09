@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add card{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col s12">
+            <a href="{{path ('card')}}" class="waves-effect waves-teal btn-small blue darken-2">All</a>
+            <ul class="listbutton">
+                <li><a class="waves-effect btn-flat" id="Type0">Trainer</a></li>
+                <li><a class="waves-effect btn-flat" id="Type1">Fire</a></li>
+                <li><a class="waves-effect btn-flat" id="Type2">Water</a></li>
+                <li><a class="waves-effect btn-flat" id="Type3">Ligthning</a></li>
+                <li><a class="waves-effect btn-flat" id="Type4">Psychic</a></li>
+                <li><a class="waves-effect btn-flat" id="Type5">Fighting</a></li>
+                <li><a class="waves-effect btn-flat" id="Type6">Darkness</a></li>
+                <li><a class="waves-effect btn-flat" id="Type7">Colorless</a></li>
+                <li><a class="waves-effect btn-flat" id="Type8">Grass</a></li>
+                <li><a class="waves-effect btn-flat" id="Type9">Fairy</a></li>
+                <li><a class="waves-effect btn-flat" id="Type10">Metal</a></li>
+                <li><a class="waves-effect btn-flat" id="Type11">Dragon</a></li>
+            </ul>
+        </div>
+        <div class"col s12">
+            <ul class="pagination" id='max{{nmbpage + 1}}'>
+                <li class="waves-effect disabled"><a><i class="material-icons" id='back'>chevron_left</i></a></li>
+                {% for i in 0.. nmbpage %}
+                    {% if  i == 0 %}
+                    <li class="active waves-effect"><a id='page{{i + 1}}'>{{i + 1}}</a></li>
+                    {% else %}
+                    <li class="waves-effect"><a id='page{{i + 1}}'>{{i + 1}}</a></li>
+                    {% endif %}
+                {% endfor %}
+                <li class="waves-effect"><a><i class="material-icons" id='after'>chevron_right</i></a></li>
+            </ul>
+            <div id="content">
+                {% for item in cartes %}
+                <div class="cardWithBtn">
+                    <a href="{{ path('cardInfo', {id: item.id}) }}"><img id="{{item.id}}" src="{{ item.imageUrl }}" /></a>
+                    <a id="card{{item.id}} deck{{deck.id}}" class="btnAddCardToDeck waves-effect waves-light btn ">Add</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block javascripts %}
+{{ parent() }} 
+<script src="{{ asset ('assets/js/indexCard.js') }}"></script>
+<script src="{{ asset ('assets/js/addCardToDeck.js') }}"></script>
+{% endblock %}

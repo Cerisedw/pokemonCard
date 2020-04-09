@@ -23,7 +23,7 @@
         <h2>Mes Decks :</h2>
         <ul>
         {% for deck in decks %}
-            <li>{{ deck.nom }}</li>
+            <li>{{ deck.nom }} <a href="{{ path('deck-add-card',{iddeck: deck.id}) }}" class="waves-effect btn-flat">Add Card</a></li>
         {% endfor %}
         </ul>
         {% endif %}

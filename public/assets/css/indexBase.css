@@ -30,3 +30,22 @@ nav{
 .displayNone{
   display:none;
 }
+
+.cardWithBtn{
+  max-width: 250px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#content{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.btnDelete{
+  background-color: rgb(163, 22, 17);
+}
+.btnDelete:hover{
+  background-color: rgb(189, 69, 65);
+}
