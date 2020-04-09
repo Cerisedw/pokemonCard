@@ -38,8 +38,13 @@
                 {% for item in cartes %}
                 <div class="cardWithBtn">
                     <a href="{{ path('cardInfo', {id: item.id}) }}"><img id="{{item.id}}" src="{{ item.imageUrl }}" /></a>
-                    <a id="card{{item.id}} deck{{deck.id}}" class="btnAddCardToDeck waves-effect waves-light btn ">Add</a>
+                        {% if item.code in cardCodeFromDeck %}
+                        <a id="card{{item.id}} deck{{deck.id}}" class="btnAddCardToDeck waves-effect waves-light btn btnDelete">Delete</a>
+                        {% else %}
+                        <a id="card{{item.id}} deck{{deck.id}}" class="btnAddCardToDeck waves-effect waves-light btn">Add</a>
+                        {% endif %}
                 </div>
+
                 {% endfor %}
             </div>
         </div>

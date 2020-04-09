@@ -40,15 +40,25 @@ class DeckController extends AbstractController
     public function addCardToDeck(int $iddeck){
         // dd($iddeck);
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery("SELECT deck FROM App\Entity\Deck deck WHERE deck.id = :id");
-        $query->setParameter(':id', $iddeck);
-        $deck = $query->getArrayResult();
 
-        $query2 = $em->createQuery("SELECT card FROM App\Entity\Card card");
-        $twentycartes = $query2->setMaxResults(20)->setFirstResult(0)->getResult();
+        $query2 = $em->createQuery("SELECT deck FROM App\Entity\Deck deck WHERE deck.id = :id");
+        $query2->setParameter(':id', $iddeck);
+        $deck = $query2->getArrayResult();
+
+        $query4 = $em->createQuery("SELECT card.code FROM App\Entity\Card card JOIN card.decks deck WHERE deck.id = :id");
+        $query4->setParameter(':id', $iddeck);
+        $cards = $query4->getArrayResult();
+        $cardsCode = [];
+        foreach($cards as $card){
+            array_push($cardsCode, $card["code"]);
+        }
+        // dd($cardsCode);
+
+        $query3 = $em->createQuery("SELECT card FROM App\Entity\Card card");
+        $twentycartes = $query3->setMaxResults(20)->setFirstResult(0)->getResult();
         $nmbMaxPage = $this->getNmbPageMax(20);
-        // dd($deck);
-        return $this->render('deck/add-card.html.twig', ['deck' => $deck["0"], "cartes" => $twentycartes, "nmbpage" => $nmbMaxPage]);
+        // dd($twentycartes);
+        return $this->render('deck/add-card.html.twig', ['cardCodeFromDeck' => $cardsCode,'deck' => $deck["0"], "cartes" => $twentycartes, "nmbpage" => $nmbMaxPage]);
     }
 
 
