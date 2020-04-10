@@ -60,7 +60,7 @@ const sendId = (e) => {
     axios.post(url, form)
     .then((res) => {
         constructList(res.data);
-        $('.pagination').empty();
+        // $('.pagination').css("display","none");
 
     })
     .catch((error) => console.log(error));

@@ -3,7 +3,8 @@
 {% block title %}Add card{% endblock %}
 
 {% block body %}
-
+    <div style="display: none;" id="deckActuel" value="{{deck.id}}"></div>
+    <h3>{{ deck.nom }}</h3>
     <div class="row">
         <div class="col s12">
             <a href="{{path ('card')}}" class="waves-effect waves-teal btn-small blue darken-2">All</a>
@@ -54,6 +55,6 @@
 {% endblock %}
 {% block javascripts %}
 {{ parent() }} 
-<script src="{{ asset ('assets/js/indexCard.js') }}"></script>
+{# <script src="{{ asset ('assets/js/filterPageDeck.js') }}"></script> #}
 <script src="{{ asset ('assets/js/addCardToDeck.js') }}"></script>
 {% endblock %}
