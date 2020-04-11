@@ -106,6 +106,21 @@ class DeckController extends AbstractController
         return new JsonResponse("OK");
     }
 
+    /**
+     * @Route("/deck/get/allcode", options={"expose"=true}, name="deck-get-code")
+     */
+    public function deckGetAllcode(Request $req){
+        $idDeck = (int)$req->request->get("iddeck");
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT card.code FROM App\Entity\Card card JOIN card.decks deck WHERE deck.id = :id");
+        $query->setParameter(':id', $idDeck);
+        $cards = $query->getArrayResult();
+        $cardsCode = [];
+        foreach($cards as $card){
+            array_push($cardsCode, $card["code"]);
+        }
+        return new JsonResponse($cardsCode);
+    }
 
     private function getNmbPageMax(int $imgPerPage){
         $em = $this->getDoctrine()->getManager();

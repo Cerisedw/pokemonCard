@@ -1,14 +1,22 @@
 // filter + bouton ajout carte 
-const constructList = (arr, deckid) => {
+const constructList = (arr, deckid, listCode) => {
     $('#content').empty();
-    console.log(arr);
     arr.forEach((item)=>{
         const url = Routing.generate('cardInfo', {'id': item.id});
-        $('#content').append($(`<div class="cardWithBtn">
-                <a href="${url}"><img id="${item.id}" src="${item.imageUrl}" /></a>
-                <a id="card${item.id} deck${deckid}" class="btnAddCardToDeck waves-effect waves-light btn">Add</a>
-            </div>
-        `));
+        if (listCode.includes(item.code)){
+            $('#content').append($(`<div class="cardWithBtn">
+                    <a href="${url}"><img id="${item.id}" src="${item.imageUrl}" /></a>
+                    <a id="card${item.id} deck${deckid}" class="btnAddCardToDeck waves-effect waves-light btn btnDelete">Delete</a>
+                </div>
+            `));
+
+        }else {
+            $('#content').append($(`<div class="cardWithBtn">
+                    <a href="${url}"><img id="${item.id}" src="${item.imageUrl}" /></a>
+                    <a id="card${item.id} deck${deckid}" class="btnAddCardToDeck waves-effect waves-light btn">Add</a>
+                </div>
+            `));
+        }
     });
 }
 
@@ -18,6 +26,9 @@ const constructList = (arr, deckid) => {
 //         <a id="card${item.id} deck${deckid}" class="btnAddCardToDeck waves-effect waves-light btn">Add</a>
 //     </div>
 // `);
+
+
+
 
 const pageChangeDisplay = (idPage, pageMax) => {
     $('.pagination li').removeClass("active");
@@ -50,7 +61,7 @@ const getIdTarget = (e) => {
     return targetId;
 };
 
-const sendIdPage = (e, deckid) => {
+const sendIdPage = (e, deckid, listeCode) => {
     const form = new FormData();
     const maxPage = parseInt(($('.pagination').attr('id')).slice(3));
     const idTarget = getIdTarget(e);
@@ -60,7 +71,7 @@ const sendIdPage = (e, deckid) => {
         axios.post(url, form)
         .then((res) => {
             pageChangeDisplay(idTarget, maxPage);
-            constructList(res.data, deckid);
+            constructList(res.data, deckid,listeCode);
             const btnAC = $('.btnAddCardToDeck');
             $.makeArray(btnAC).forEach((item) => {
                 $(item).on("click", addCardToDeck);
@@ -69,13 +80,13 @@ const sendIdPage = (e, deckid) => {
     }
 };
 
-const sendId = (e, deckid) => {
+const sendId = (e, deckid, listCode) => {
     const form = new FormData();
     form.append('typeId', e.target.id);
     let url = Routing.generate('getByTypeId');
     axios.post(url, form)
     .then((res) => {
-        constructList(res.data, deckid);
+        constructList(res.data, deckid, listCode);
         // $('.pagination').css("display","none");
         const btnAC2 = $('.btnAddCardToDeck');
         $.makeArray(btnAC2).forEach((item) => {
@@ -135,13 +146,31 @@ const idDeck = $('#deckActuel').attr('value');
 
 const abutton = $('.listbutton a');
 $.makeArray(abutton).forEach((item) => {
-    $(item).on("click", (item) => sendId(item, idDeck));
+    $(item).on("click", (item) => {
+        let url = Routing.generate('deck-get-code');
+        const form = new FormData();
+        form.append('iddeck', idDeck);
+        axios.post(url, form)
+        .then((res) => {
+            sendId(item, idDeck, res.data);
+        }).catch((error) => console.log(error));
+    
+    });
 });
 
 
 const li = $('.pagination li');
 $.makeArray(li).forEach((item) => {
-    $(item).on("click", (item) => sendIdPage(item, idDeck));
+    $(item).on("click", (item) => {
+        let url = Routing.generate('deck-get-code');
+        const form = new FormData();
+        form.append('iddeck', idDeck);
+        axios.post(url, form)
+        .then((res) => {
+            sendIdPage(item, idDeck, res.data);
+        }).catch((error) => console.log(error));
+
+    });
 });
 
 $('.dropdown-trigger').dropdown();
@@ -152,5 +181,4 @@ const btnsAddCard = $('.btnAddCardToDeck');
 $.makeArray(btnsAddCard).forEach((item) => {
     $(item).on("click", addCardToDeck);
 });
-
 
