@@ -175,8 +175,6 @@ $.makeArray(li).forEach((item) => {
 
 $('.dropdown-trigger').dropdown();
 
-
-
 const btnsAddCard = $('.btnAddCardToDeck');
 $.makeArray(btnsAddCard).forEach((item) => {
     $(item).on("click", addCardToDeck);

@@ -23,11 +23,17 @@
         <h2>Mes Decks :</h2>
         <ul>
         {% for deck in decks %}
-            <li>{{ deck.nom }} <a href="{{ path('deck-add-card',{iddeck: deck.id}) }}" class="waves-effect btn-flat">Add Card</a></li>
+            <li id="{{deck.id}}">
+                {{ deck.nom }} 
+                <div>
+                    <a href="{{ path('deck-add-card',{iddeck: deck.id}) }}" class="blue darken-2 waves-effect btn">Add Card</a>
+                    <a class="red darken-3 btn deleteDeckBtn" id="deck{{deck.id}}"><i class="medium material-icons">delete</i></a>
+                </div>
+            </li>
         {% endfor %}
         </ul>
         {% endif %}
-        <a href="{{ path('deck-create') }}" class="waves-effect waves-light btn blue darken-2">Create new deck</a>
+        <a href="{{ path('deck-create') }}" class="waves-effect waves-light btn blue darken-2"><i class="medium material-icons">add_box</i></a>
     </div>
 </div>
 {% endblock %}
@@ -35,4 +41,5 @@
 {% block javascripts %}
 {{ parent() }} 
 <script src="{{ asset ('assets/js/profil.js') }}"></script>
+<script src="{{ asset ('assets/js/deleteDeck.js') }}"></script>
 {% endblock %}

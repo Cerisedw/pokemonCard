@@ -122,6 +122,19 @@ class DeckController extends AbstractController
         return new JsonResponse($cardsCode);
     }
 
+    /**
+     * @Route("/deck/delete", options={"expose"=true}, name="delete-deck")
+     */
+
+    public function deleteDeck(Request $req){
+        $idDeck = (int)$req->request->get("iddeck");
+        $em = $this->getDoctrine()->getManager();
+        $deckToDelete = $em->getRepository(Deck::class)->findOneBy(['id'=>$idDeck]);
+        $em->remove($deckToDelete);
+        $em->flush();
+        return new JsonResponse('Deck number '.$idDeck.' deleted!');
+    }
+
     private function getNmbPageMax(int $imgPerPage){
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery("SELECT card FROM App\Entity\Card card");
