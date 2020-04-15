@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Deck Info{% endblock %}
+
+{% block body %}
+    <div style="display: none;" id="deckActuel" value="{{deck.id}}"></div>
+    <h3>{{ deck.nom }}</h3>
+    <p>{{ deck.description }}</p>
+            <div id="content">
+                {% for item in cards %}
+                <div class="cardWithBtn">
+                    <a href="{{ path('cardInfo', {id: item.id}) }}"><img id="{{item.id}}" src="{{ item.imageUrl }}" /></a>
+                    <a id="card{{item.id}} deck{{deck.id}}" class="btnDeleteCard waves-effect waves-light btn btnDelete">Delete</a>
+                </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block javascripts %}
+{{ parent() }} 
+<script src="{{ asset ('assets/js/deckInfoDeleteCard.js') }}"></script>
+{% endblock %}

@@ -4,7 +4,8 @@
 
 {% block body %}
     <div style="display: none;" id="deckActuel" value="{{deck.id}}"></div>
-    <h3>{{ deck.nom }}</h3>
+    <h3>{{ deck.nom }} <a href="{{ path('deck-info',{iddeck: deck.id}) }}" class="blue darken-2 waves-effect btn"><i class="Large material-icons">info_outline</i></a>
+</h3>
     <div class="row">
         <div class="col s12">
             {# <a href="{{path ('card')}}" class="waves-effect waves-teal btn-small blue darken-2">All</a> #}

@@ -15,6 +15,25 @@ class DeckController extends AbstractController
 
 
     /**
+     * @Route("/deck/info/{iddeck}", name="deck-info", requirements={"id"="\d+"})
+     */
+
+    public function deckInfo(int $iddeck){
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT card FROM App\Entity\Card card JOIN card.decks deck WHERE deck.id = :id");
+        $query->setParameter(':id', $iddeck);
+        $cards = $query->getArrayResult();
+
+        $query2 = $em->createQuery("SELECT deck FROM App\Entity\Deck deck WHERE deck.id = :id2");
+        $query2->setParameter(':id2', $iddeck);
+        $deck = $query2->getArrayResult();
+        // dd($deck["0"]);
+
+        return $this->render('deck/deck-info.html.twig', ['cards' => $cards, 'nmbcard' => count($cards), 'deck' => $deck["0"]]);
+
+    }
+
+    /**
      * @Route("/deck/create", name="deck-create")
      */
     public function createDeckForm(Request $req){
