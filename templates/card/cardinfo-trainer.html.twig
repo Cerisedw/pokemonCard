@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CardController!{% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col s12 m6">
+        <img style="max-width: 100%;" src="{{ carte.imageUrlHiRes }}" />
+    </div>
+    <div class="col s12 m6">
+        <div>
+            <h2>{{carte.name}}</h2>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+{% endblock %}

@@ -61,7 +61,14 @@ class CardController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery("SELECT card, type, attack, weakness, typeweak, cost FROM App\Entity\Card card JOIN card.types type JOIN card.attacks attack JOIN attack.cost cost JOIN card.weakness weakness JOIN weakness.typeweak typeweak WHERE card.id = :id");
         $query->setParameter(':id', $id);
-        $carte = $query->getArrayResult();
+        if($query->getArrayResult()){
+            $carte = $query->getArrayResult();
+        }else{
+            $queryCardTrainer = $em->createQuery("SELECT card FROM App\Entity\Card card WHERE card.id = :idTrainer");
+            $queryCardTrainer->setParameter(':idTrainer', $id);
+            $carte = $queryCardTrainer->getArrayResult();
+            return $this->render('card/cardinfo-trainer.html.twig', ["carte" => $carte["0"]]);
+        }
 
         $query2 = $em->createQuery("SELECT card, abilities FROM App\Entity\Card card JOIN card.abilities abilities WHERE card.id = :id2");
         $query2->setParameter(':id2', $id);

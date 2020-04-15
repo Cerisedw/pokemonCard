@@ -12,7 +12,9 @@
     <div class="col s12 m6">
         <div>
             <h2>{{carte.name}}</h2>
+            {% if carte.hp %}
             <h4>hp {{ carte.hp }}</h4>
+            {% endif %}
         </div>
         <div>
         {% if ability %}
