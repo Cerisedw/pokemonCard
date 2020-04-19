@@ -49,3 +49,7 @@ nav{
 .btnDelete:hover{
   background-color: rgb(189, 69, 65);
 }
+
+.imgDuProfil{
+  max-width: 500px;
+}

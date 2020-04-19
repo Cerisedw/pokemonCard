@@ -34,6 +34,20 @@ class DeckController extends AbstractController
     }
 
     /**
+     * @Route("deck/list/{iduser}", name="deck-list", requirements={"iduser"="\d+"})
+     */
+
+    public function listDeck(int $iduser){
+        // dd($iduser);
+        $em = $this->getDoctrine()->getManager();
+        $query= $em->createQuery("SELECT deck FROM App\Entity\Deck deck WHERE deck.idUser = :id");
+        $query->setParameter(':id', $iduser);
+        $decks = $query->getArrayResult();
+
+        return $this->render('deck/deck-list.html.twig', ['decks' => $decks]);
+    }
+
+    /**
      * @Route("/deck/create", name="deck-create")
      */
     public function createDeckForm(Request $req){
@@ -48,7 +62,7 @@ class DeckController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($deck);
             $entityManager->flush();
-            return $this->redirectToRoute("profil", ["id" => $userCo->getId()]); 
+            return $this->redirectToRoute("deck-list", ["iduser" => $userCo->getId()]); 
         }
         return $this->render('deck/create-deck.html.twig', ['form' => $formDeck->createView()]);
     }

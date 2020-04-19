@@ -16,6 +16,7 @@
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     {% if app.user %}
                     <li><a href="{{ path('deck-create') }}">Create Deck</a>
+                    <li><a href="{{ path('deck-list', {iduser: app.user.id}) }}">My decks</a>
                     <li><a class="aProfilNav" href="{{ path('profil', {id: app.user.id}) }}"><img class="imgProfilNav" src="/assets/img/{{ app.user.img }}" /></a></li>
                     <li><a href="{{ path('app_logout') }}">LogOff</a></li>
                     {% else %}
