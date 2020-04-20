@@ -53,3 +53,12 @@ nav{
 .imgDuProfil{
   max-width: 500px;
 }
+
+.iconeType{
+  max-width: 50px;
+}
+
+.flextest{
+  display: flex;
+  justify-content: space-between;
+}

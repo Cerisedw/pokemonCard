@@ -31,6 +31,11 @@
                     <h3>Attacks </h3>
                 {% for attaque in carte.attacks %}
                     <div class="flextest">
+                        <div class="flextest">
+                            {% for cost in attaque.cost %}
+                            <img class="iconeType" src="/assets/img/typeicone/{{cost.name}}.png" />
+                            {% endfor %}
+                        </div>
                         <h4>{{ attaque.name }}</h4>
                         <h4>{{ attaque.damage }}</h4>
                     </div>
@@ -41,7 +46,9 @@
                 {% if carte.weakness %}
                 <div class="cardRow">
                     <h3>Weakness</h3>
-                    <p>{{ carte.weakness.typeweak.name }}   {{ carte.weakness.value }}</p>
+                    <div class="flextest">
+                    <img class="iconeType" src="/assets/img/typeicone/{{ carte.weakness.typeweak.name }}.png"/>
+                    <h4>{{ carte.weakness.value }}</h4></div>
                 </div>
                 {% endif %}
                 </div>
