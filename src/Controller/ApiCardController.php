@@ -25,6 +25,7 @@ class ApiCardController extends AbstractController
         $cards = $res->ToArray();
         // dd($cards["cards"]);
         $cartes = $this->apiToArrCardObject($cards["cards"]);
+
         // dd($cartes);
         return new Response("ok");
     }
@@ -60,9 +61,9 @@ class ApiCardController extends AbstractController
          foreach($types as $t){
              $typeDb = new Type();
              $typeDb->setName($t);
-            //  $em->persist($typeDb);
+             $em->persist($typeDb);
          }
-        //  $em->flush();
+         $em->flush();
          return new Response("OK");
      }
 
@@ -81,10 +82,10 @@ class ApiCardController extends AbstractController
             $this->ajoutAttackToCard($carte, $carteObjet);
             $this->ajoutWeaknessToCard($carte, $carteObjet);
             $this->ajoutAbilityToCard($carte, $carteObjet);
-            // $em->persist($carteObjet);
+            $em->persist($carteObjet);
             $newCardArray[] = $carteObjet;
         }
-        // $em->flush();
+        $em->flush();
         return $newCardArray;
      }
 
