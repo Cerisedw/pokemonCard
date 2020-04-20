@@ -20,25 +20,27 @@
                 {% if ability %}
                 <div class="cardRow">
                     <h3>Ability</h3>
-                    <h4>{{ ability.name }}</h4>
+                    <div class="flextest">
+                        <h4>{{ ability.name }}</h4>
+                    </div>
                     <p>{{ ability.text }}</p>
                 </div>
                 {% endif %}
                 {% if carte.attacks %}
                 <div class="cardRow">
-                    <h3>Attacks :</h3>
+                    <h3>Attacks </h3>
                 {% for attaque in carte.attacks %}
                     <div class="flextest">
                         <h4>{{ attaque.name }}</h4>
                         <h4>{{ attaque.damage }}</h4>
                     </div>
-                    <p>{{ attaque.text }}
+                        <p>{{ attaque.text }}</p>
                 {% endfor %}
                 </div>
                 {% endif %}
                 {% if carte.weakness %}
                 <div class="cardRow">
-                    <h3>Weakness : </h3>
+                    <h3>Weakness</h3>
                     <p>{{ carte.weakness.typeweak.name }}   {{ carte.weakness.value }}</p>
                 </div>
                 {% endif %}

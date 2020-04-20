@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CardController extends AbstractController
 {
     /**
-     * @Route("/card", name="card")
+     * @Route("/", name="card")
      */
     public function getAll()
     {

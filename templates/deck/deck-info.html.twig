@@ -1,19 +1,33 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset ('assets/css/vignetcss.css') }}">
+{% endblock %}
 
 {% block title %}Deck Info{% endblock %}
 
 {% block body %}
     <div style="display: none;" id="deckActuel" value="{{deck.id}}"></div>
-    <h3>{{ deck.nom }} <a href="{{ path('deck-add-card',{iddeck: deck.id}) }}" class="blue darken-2 waves-effect btn">Add Card</a></h3>
-    <p>{{ deck.description }}</p>
-            <div id="content">
-                {% for item in cards %}
-                <div class="cardWithBtn">
-                    <a href="{{ path('cardInfo', {id: item.id}) }}"><img id="{{item.id}}" src="{{ item.imageUrl }}" /></a>
-                    <a id="card{{item.id}} deck{{deck.id}}" class="btnDeleteCard waves-effect waves-light btn btnDelete">Delete</a>
+    <div class="row">
+        <div class="col s12">
+            <div class="profilDetails">
+                <div class="profilTitle">
+                    <h2>{{ deck.nom }} <a href="{{ path('deck-add-card',{iddeck: deck.id}) }}" class="white btn blueColor">Add Card</a></h2>
                 </div>
+                <div class="profilRow">
+                    <p>{{ deck.description }}</p>
+                </div>
+                <div class="profilRow flextest">
+                    <div id="content">
+                        {% for item in cards %}
+                        <div class="cardWithBtn">
+                            <a href="{{ path('cardInfo', {id: item.id}) }}"><img id="{{item.id}}" src="{{ item.imageUrl }}" /></a>
+                            <a id="card{{item.id}} deck{{deck.id}}" class="btnDeleteCard waves-effect waves-light btn btnDelete">Delete</a>
+                        </div>
 
-                {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
