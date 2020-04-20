@@ -6,12 +6,16 @@
 {% endblock %}
 {% block body %}
 <div class="row">
-    <div class="col s12 m6">
-        <img style="max-width: 100%;" src="{{ carte.imageUrlHiRes }}" />
-    </div>
-    <div class="col s12 m6">
-        <div>
-            <h2>{{carte.name}}</h2>
+    <div class="containerProfil">
+        <div class="col s12 m6">
+            <div class="profilDetails">
+                <div class="profilTitle flextest">
+                    <h2>{{carte.name}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6">
+            <img style="max-width: 100%;" src="{{ carte.imageUrlHiRes }}" />
         </div>
     </div>
 </div>

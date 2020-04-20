@@ -1,40 +1,63 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset ('assets/css/vignetcss.css') }}">
+{% endblock %}
 {% block title %}Profil{% endblock %}
 
 {% block body %}
 <div class="row">
-    <div class="col s12 m8">
-        <h2>{{ app.user.pseudo }}</h2>
-        <img class="imgDuProfil" src="/assets/img/{{ app.user.img }}" />
-        <div>
-            <a id="btnUpdateImg" class="waves-effect waves-light btn blue darken-2">Change Picture</a>
-            <div id="updateImg" class="displayNone">
-                {{ form_start (form) }}
-                        {{ form_widget (form) }}
-                <input type="submit" value="Envoyer">
-                {{ form_end (form) }}
+    <div class="containerProfil">
+        <div class="col s12 m6">
+            <div class="profilDetails">
+                <div class="profilTitle">
+                    <h2>{{ app.user.pseudo }}</h2>
+                </div>
+                <div class="profilRow">
+                    <img class="imgDuProfil" src="/assets/img/{{ app.user.img }}" />
+                </div>
+                <div class="profilRow">
+                    <a id="btnUpdateImg" class="waves-effect waves-light btn blue darken-2">Change Picture</a>
+                    <div id="updateImg" class="displayNone">
+                        {{ form_start (form) }}
+                                {{ form_widget (form) }}
+                        <input type="submit" value="Envoyer">
+                        {{ form_end (form) }}
+                    </div>
+                </div>
+                <div class="profilRow">
+                    <h3>Email</h3>
+                    <p>{{ app.user.email }}</p>
+                </div>
             </div>
         </div>
-        <p>{{ app.user.email }}</p>
-    </div>
-    <div class="col s12 m4">
-        {% if decks %}
-        <h2>Mes Decks :</h2>
-        <ul>
-        {% for deck in decks %}
-            <li id="{{deck.id}}">
-                {{ deck.nom }} 
-                <div>
-                    <a href="{{ path('deck-info',{iddeck: deck.id}) }}" class="blue darken-2 waves-effect btn"><i class="Large material-icons">info_outline</i></a>
-                    <a href="{{ path('deck-add-card',{iddeck: deck.id}) }}" class="blue darken-2 waves-effect btn">Add Card</a>
-                    <a class="red darken-3 btn deleteDeckBtn" id="deck{{deck.id}}"><i class="Large material-icons">delete</i></a>
+        <div class="col s12 m6">
+            <div class="profilDetails">
+                {% if decks %}
+                <div class="profilTitle">
+                    <h2>Mes Decks</h2>
                 </div>
-            </li>
-        {% endfor %}
-        </ul>
-        {% endif %}
-        <a href="{{ path('deck-create') }}" class="waves-effect waves-light btn blue darken-2"><i class="Large material-icons">add_box</i></a>
+                <div class="profilRow">
+                    <ul>
+                    {% for deck in decks %}
+                        <li id="{{deck.id}}">
+                            {{ deck.nom }} 
+                            <div>
+                                <a href="{{ path('deck-info',{iddeck: deck.id}) }}" class="blue darken-2 waves-effect btn"><i class="Large material-icons">info_outline</i></a>
+                                <a href="{{ path('deck-add-card',{iddeck: deck.id}) }}" class="blue darken-2 waves-effect btn">Add Card</a>
+                                <a class="red darken-3 btn deleteDeckBtn" id="deck{{deck.id}}"><i class="Large material-icons">delete</i></a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                <div class="profilRow">
+
+                {% endif %}
+                <a href="{{ path('deck-create') }}" class="waves-effect waves-light btn blue darken-2"><i class="Large material-icons">add_box</i></a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

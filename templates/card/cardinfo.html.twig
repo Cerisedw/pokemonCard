@@ -1,38 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CardController!{% endblock %}
+
+{% block title %}Card info{% endblock %}
 {% block stylesheets %}
 {{ parent() }}
+<link rel="stylesheet" href="{{ asset ('assets/css/vignetcss.css') }}">
 {% endblock %}
 {% block body %}
 <div class="row">
-    <div class="col s12 m6">
-        <img style="max-width: 100%;" src="{{ carte.imageUrlHiRes }}" />
-    </div>
-    <div class="col s12 m6">
-        <div>
-            <h2>{{carte.name}}</h2>
-            {% if carte.hp %}
-            <h4>hp {{ carte.hp }}</h4>
-            {% endif %}
+    <div class="containerProfil">
+        <div class="col s12 m6">
+            <div class="profilDetails">
+                <div class="profilTitle flextest">
+                    <h2>{{carte.name}}</h2>
+                    {% if carte.hp %}
+                    <h2>{{ carte.hp }} HP</h2>
+                    {% endif %}
+                </div>
+                {% if ability %}
+                <div class="cardRow">
+                    <h3>Ability</h3>
+                    <h4>{{ ability.name }}</h4>
+                    <p>{{ ability.text }}</p>
+                </div>
+                {% endif %}
+                {% if carte.attacks %}
+                <div class="cardRow">
+                    <h3>Attacks :</h3>
+                {% for attaque in carte.attacks %}
+                    <div class="flextest">
+                        <h4>{{ attaque.name }}</h4>
+                        <h4>{{ attaque.damage }}</h4>
+                    </div>
+                    <p>{{ attaque.text }}
+                {% endfor %}
+                </div>
+                {% endif %}
+                {% if carte.weakness %}
+                <div class="cardRow">
+                    <h3>Weakness : </h3>
+                    <p>{{ carte.weakness.typeweak.name }}   {{ carte.weakness.value }}</p>
+                </div>
+                {% endif %}
+                </div>
+            </div>
         </div>
-        <div>
-        {% if ability %}
-            <h3>Ability</h3>
-            <h4>{{ ability.name }}</h4>
-            <p>{{ ability.text }}</p>
-        {% endif %}
-        {% if carte.attacks %}
-            <h3>Attacks :</h3>
-        {% for attaque in carte.attacks %}
-            <h4>{{ attaque.name }}   {{ attaque.damage }}</h4>
-            <p>{{ attaque.text }}
-        {% endfor %}
-        {% endif %}
-        {% if carte.weakness %}
-            <h3>Weakness : </h3>
-            <p>{{ carte.weakness.typeweak.name }}   {{ carte.weakness.value }}</p>
-        {% endif %}
+        <div class="col s12 m6">
+            <img style="max-width: 100%;" src="{{ carte.imageUrlHiRes }}" />
         </div>
     </div>
 </div>

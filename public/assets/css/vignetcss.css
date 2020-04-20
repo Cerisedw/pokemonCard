@@ -1,0 +1,52 @@
+.containerProfil{
+    /* display: flex;
+    justify-content: space-between; */
+    /* margin-top: 50px; */
+    max-width: 100%;
+}
+
+.profilDetails{
+    background-color: #f9f6f7;
+    border-radius: 5px;
+    box-shadow: 0 3px 5px rgba(100, 100, 100, 0.5);
+    text-align: left;
+}
+
+.profilDetails h4{
+    width: 150px;
+    margin-bottom: 15px;
+    line-height: 0;
+}
+
+
+.profilTitle{
+    justify-content: space-evenly;
+    border-radius: 5px;
+    background-color: #1976d2;
+    color: white;
+    /* padding: 5px 0; */
+    margin-bottom: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.profilTitle h2{
+    margin-bottom: 20px;
+    padding: 5px 15px;
+}
+
+.profilRow{
+    padding: 15px 20px;
+    text-align: left;
+}
+.cardRow{
+    padding: 5px 20px;
+    text-align: left;
+}
+.cardRow h3{
+    color:#1976d2;
+}
+
+.flextest{
+    display: flex;
+    justify-content: space-between;
+}
