@@ -24,12 +24,19 @@ const putPaginationJs = (pageMax, idtype, iddeck, listecode) => {
                 let url = Routing.generate('card-pagination-type', {'idtype' : idtype});
                 axios.post(url, form2)
                 .then((res) => {
-                    pageChangeDisplay(idtarget, pageMax);
-                    constructList(res.data, iddeck, listecode);
-                    const btnAC2 = $('.btnAddCardToDeck');
-                    $.makeArray(btnAC2).forEach((item) => {
-                        $(item).on("click", addCardToDeck);
-                    });
+                    const form3 = new FormData();
+                    const responsedata = res.data;
+                    let url3 = Routing.generate('deck-get-code');
+                    form3.append('iddeck', iddeck);
+                    axios.post(url3, form3)
+                    .then((x) => {
+                        pageChangeDisplay(idtarget, pageMax);
+                        constructList(responsedata, iddeck, x.data);
+                        const btnAC2 = $('.btnAddCardToDeck');
+                        $.makeArray(btnAC2).forEach((item) => {
+                            $(item).on("click", addCardToDeck);
+                        });
+                    }).catch((error) => console.log(error));
                 })
                 .catch((error) => console.log(error));
             }
