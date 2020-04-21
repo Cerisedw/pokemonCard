@@ -16,8 +16,8 @@ class CardController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery("SELECT card FROM App\Entity\Card card");
-        $twentycartes = $query->setMaxResults(20)->setFirstResult(0)->getResult();
-        $nmbMaxPage = $this->getNmbPageMax(20);
+        $twentycartes = $query->setMaxResults(10)->setFirstResult(0)->getResult();
+        $nmbMaxPage = $this->getNmbPageMax(10);
 
         // dd($nmbpage);
         // dd($cartes);
@@ -32,11 +32,11 @@ class CardController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         if($id == 0){
             $queryDB = $em->createQuery("SELECT card FROM App\Entity\Card card WHERE card.supertype = 'Trainer'");
-            $cartes = $queryDB->setMaxResults(20)->setFirstResult(0)->getArrayResult();    
+            $cartes = $queryDB->setMaxResults(10)->setFirstResult(0)->getArrayResult();    
         }else{
             $queryDB = $em->createQuery("SELECT card, type FROM App\Entity\Card card JOIN card.types type WHERE type.id = :typeId");
             $queryDB->setParameter(':typeId', $id);
-            $cartes = $queryDB->setMaxResults(20)->setFirstResult(0)->getArrayResult();    
+            $cartes = $queryDB->setMaxResults(10)->setFirstResult(0)->getArrayResult();    
         }
         // dd($cartes);
         return new JsonResponse($cartes);
@@ -49,7 +49,7 @@ class CardController extends AbstractController
         $page = (int)$req->request->get("page") - 1;
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery("SELECT card FROM App\Entity\Card card");
-        $cartes = $query->setMaxResults(20)->setFirstResult(20 * $page)->getArrayResult();
+        $cartes = $query->setMaxResults(10)->setFirstResult(10 * $page)->getArrayResult();
         return new JsonResponse($cartes);
     }
 
@@ -94,11 +94,11 @@ class CardController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         if($idtype == 0){
             $queryDB = $em->createQuery("SELECT card FROM App\Entity\Card card WHERE card.supertype = 'Trainer'");
-            $cartes = $queryDB->setMaxResults(20)->setFirstResult(20 * $page)->getArrayResult();    
+            $cartes = $queryDB->setMaxResults(10)->setFirstResult(10 * $page)->getArrayResult();    
         }else {
             $query = $em->createQuery("SELECT card FROM App\Entity\Card card JOIN card.types type WHERE type.id = :id");
             $query->setParameter(':id', $idtype);
-            $cartes = $query->setMaxResults(20)->setFirstResult(20 * $page)->getArrayResult();
+            $cartes = $query->setMaxResults(10)->setFirstResult(10 * $page)->getArrayResult();
         }
         return new JsonResponse($cartes);
     }
@@ -108,7 +108,7 @@ class CardController extends AbstractController
      */
 
     public function maxpagebytype(int $idtype){
-        $maxPagenmb = $this->getNmbPageMaxWithType(20, $idtype);
+        $maxPagenmb = $this->getNmbPageMaxWithType(10, $idtype);
         return new JsonResponse($maxPagenmb);
     }
 

@@ -88,8 +88,8 @@ class DeckController extends AbstractController
         // dd($cardsCode);
 
         $query3 = $em->createQuery("SELECT card FROM App\Entity\Card card");
-        $twentycartes = $query3->setMaxResults(20)->setFirstResult(0)->getResult();
-        $nmbMaxPage = $this->getNmbPageMax(20);
+        $twentycartes = $query3->setMaxResults(10)->setFirstResult(0)->getResult();
+        $nmbMaxPage = $this->getNmbPageMax(10);
         // dd($twentycartes);
         return $this->render('deck/add-card.html.twig', ['cardCodeFromDeck' => $cardsCode,'deck' => $deck["0"], "cartes" => $twentycartes, "nmbpage" => $nmbMaxPage]);
     }

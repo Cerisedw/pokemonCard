@@ -17,6 +17,7 @@
                     <h2>{{ deck.nom }} <a href="{{ path('deck-info',{iddeck: deck.id}) }}" class="white btn blueColor"><i class="Large material-icons">info_outline</i></a></h2>
                 </div>
                 <div class="profilRow">
+                    <a href="{{path ('deck-add-card', {iddeck: deck.id})}}" class="waves-effect waves-teal btn-small blue darken-2">All</a>
                     <ul class="listbutton">
                         <li><a class="waves-effect btn-flat filter" id="Type0">Trainer</a></li>
                         <li><a class="waves-effect btn-flat filter" id="Type1">Fire</a></li>
