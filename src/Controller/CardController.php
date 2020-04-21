@@ -17,8 +17,8 @@ class CardController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery("SELECT card FROM App\Entity\Card card");
         $twentycartes = $query->setMaxResults(20)->setFirstResult(0)->getResult();
-        // $cartes = $query->getResult();
         $nmbMaxPage = $this->getNmbPageMax(20);
+
         // dd($nmbpage);
         // dd($cartes);
         return $this->render('card/index.html.twig', ["cartes" => $twentycartes, "nmbpage" => $nmbMaxPage]);
@@ -32,11 +32,11 @@ class CardController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         if($id == 0){
             $queryDB = $em->createQuery("SELECT card FROM App\Entity\Card card WHERE card.supertype = 'Trainer'");
-            $cartes = $queryDB->getArrayResult();    
+            $cartes = $queryDB->setMaxResults(20)->setFirstResult(0)->getArrayResult();    
         }else{
             $queryDB = $em->createQuery("SELECT card, type FROM App\Entity\Card card JOIN card.types type WHERE type.id = :typeId");
             $queryDB->setParameter(':typeId', $id);
-            $cartes = $queryDB->getArrayResult();    
+            $cartes = $queryDB->setMaxResults(20)->setFirstResult(0)->getArrayResult();    
         }
         // dd($cartes);
         return new JsonResponse($cartes);
@@ -86,10 +86,38 @@ class CardController extends AbstractController
         return $this->render('card/cardinfo.html.twig', ["carte" => $carte["0"], "ability" => $ability]);
     }
 
+    /**
+     * @Route("/card/all/type/{idtype}", options={"expose"=true}, name="card-pagination-type", requirements={"idtype"="\d+"} )
+     */
+    public function paginationCardType(int $idtype, Request $req){
+        $page = (int)$req->request->get("page") - 1;
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT card FROM App\Entity\Card card JOIN card.types type WHERE type.id = :id");
+        $query->setParameter(':id', $idtype);
+        $cartes = $query->setMaxResults(20)->setFirstResult(20 * $page)->getArrayResult();
+        return new JsonResponse($cartes);
+    }
+
+    /**
+     * @Route("/card/get/pagemax/type/{idtype}", options={"expose"=true}, name="card-maxpage-type", requirements={"idtype"="\d+"})
+     */
+
+    public function maxpagebytype(int $idtype){
+        $maxPagenmb = $this->getNmbPageMaxWithType(20, $idtype);
+        return new JsonResponse($maxPagenmb);
+    }
 
     private function getNmbPageMax(int $imgPerPage){
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery("SELECT card FROM App\Entity\Card card");
+        $nmbMaxPage = count($query->getResult()) / $imgPerPage;
+        return (int)$nmbMaxPage;
+    }
+
+    private function getNmbPageMaxWithType(int $imgPerPage, int $idType){
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT card FROM App\Entity\Card card JOIN card.types type WHERE type.id = :id");
+        $query->setParameter(':id', $idType);
         $nmbMaxPage = count($query->getResult()) / $imgPerPage;
         return (int)$nmbMaxPage;
     }

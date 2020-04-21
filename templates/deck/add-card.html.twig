@@ -10,18 +10,18 @@
         <div class="col s12">
             {# <a href="{{path ('card')}}" class="waves-effect waves-teal btn-small blue darken-2">All</a> #}
             <ul class="listbutton">
-                <li><a class="waves-effect btn-flat" id="Type0">Trainer</a></li>
-                <li><a class="waves-effect btn-flat" id="Type1">Fire</a></li>
-                <li><a class="waves-effect btn-flat" id="Type2">Water</a></li>
-                <li><a class="waves-effect btn-flat" id="Type3">Ligthning</a></li>
-                <li><a class="waves-effect btn-flat" id="Type4">Psychic</a></li>
-                <li><a class="waves-effect btn-flat" id="Type5">Fighting</a></li>
-                <li><a class="waves-effect btn-flat" id="Type6">Darkness</a></li>
-                <li><a class="waves-effect btn-flat" id="Type7">Colorless</a></li>
-                <li><a class="waves-effect btn-flat" id="Type8">Grass</a></li>
-                <li><a class="waves-effect btn-flat" id="Type9">Fairy</a></li>
-                <li><a class="waves-effect btn-flat" id="Type10">Metal</a></li>
-                <li><a class="waves-effect btn-flat" id="Type11">Dragon</a></li>
+                <li><a class="waves-effect btn-flat filter" id="Type0">Trainer</a></li>
+                <li><a class="waves-effect btn-flat filter" id="Type1">Fire</a></li>
+                <li><a class="waves-effect btn-flat filter" id="Type2">Water</a></li>
+                <li><a class="waves-effect btn-flat filter" id="Type3">Ligthning</a></li>
+                <li><a class="waves-effect btn-flat filter" id="Type4">Psychic</a></li>
+                <li><a class="waves-effect btn-flat filter" id="Type5">Fighting</a></li>
+                <li><a class="waves-effect btn-flat filter" id="Type6">Darkness</a></li>
+                <li><a class="waves-effect btn-flat filter" id="Type7">Colorless</a></li>
+                <li><a class="waves-effect btn-flat filter" id="Type8">Grass</a></li>
+                <li><a class="waves-effect btn-flat filter" id="Type9">Fairy</a></li>
+                <li><a class="waves-effect btn-flat filter" id="Type10">Metal</a></li>
+                <li><a class="waves-effect btn-flat filter" id="Type11">Dragon</a></li>
             </ul>
         </div>
         <div class"col s12">
@@ -58,4 +58,5 @@
 {{ parent() }} 
 {# <script src="{{ asset ('assets/js/filterPageDeck.js') }}"></script> #}
 <script src="{{ asset ('assets/js/addCardToDeck.js') }}"></script>
+<script src="{{ asset ('assets/js/filterPaginationAddCard.js') }}"></script>
 {% endblock %}
