@@ -92,9 +92,14 @@ class CardController extends AbstractController
     public function paginationCardType(int $idtype, Request $req){
         $page = (int)$req->request->get("page") - 1;
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery("SELECT card FROM App\Entity\Card card JOIN card.types type WHERE type.id = :id");
-        $query->setParameter(':id', $idtype);
-        $cartes = $query->setMaxResults(20)->setFirstResult(20 * $page)->getArrayResult();
+        if($idtype == 0){
+            $queryDB = $em->createQuery("SELECT card FROM App\Entity\Card card WHERE card.supertype = 'Trainer'");
+            $cartes = $queryDB->setMaxResults(20)->setFirstResult(20 * $page)->getArrayResult();    
+        }else {
+            $query = $em->createQuery("SELECT card FROM App\Entity\Card card JOIN card.types type WHERE type.id = :id");
+            $query->setParameter(':id', $idtype);
+            $cartes = $query->setMaxResults(20)->setFirstResult(20 * $page)->getArrayResult();
+        }
         return new JsonResponse($cartes);
     }
 
@@ -116,8 +121,12 @@ class CardController extends AbstractController
 
     private function getNmbPageMaxWithType(int $imgPerPage, int $idType){
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery("SELECT card FROM App\Entity\Card card JOIN card.types type WHERE type.id = :id");
-        $query->setParameter(':id', $idType);
+        if($idType == 0){
+            $query = $em->createQuery("SELECT card FROM App\Entity\Card card WHERE card.supertype = 'Trainer'");
+        }else {
+            $query = $em->createQuery("SELECT card FROM App\Entity\Card card JOIN card.types type WHERE type.id = :id");
+            $query->setParameter(':id', $idType);
+        }
         $nmbMaxPage = count($query->getResult()) / $imgPerPage;
         return (int)$nmbMaxPage;
     }
