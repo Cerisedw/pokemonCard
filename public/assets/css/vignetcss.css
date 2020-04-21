@@ -5,6 +5,10 @@
     max-width: 100%;
 }
 
+.containerDeckList{
+    min-width: 100%;
+}
+
 .profilDetails{
     background-color: #f9f6f7;
     border-radius: 5px;

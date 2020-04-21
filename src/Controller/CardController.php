@@ -82,7 +82,7 @@ class CardController extends AbstractController
         // $query2 = $em->createQuery("SELECT weakness, typeweak FROM App\Entity\Weakness weakness JOIN weakness.typeweak typeweak WHERE weakness.id = :idW ");
         // $query2->setParameter(':idW', $weakId);
         // $weakness = $query2->getArrayResult();
-        dd($carte);
+        // dd($carte);
         return $this->render('card/cardinfo.html.twig', ["carte" => $carte["0"], "ability" => $ability]);
     }
 

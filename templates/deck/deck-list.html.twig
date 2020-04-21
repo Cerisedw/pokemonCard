@@ -1,29 +1,43 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset ('assets/css/vignetcss.css') }}">
+{% endblock %}
 {% block title %}Deck list{% endblock %}
 
 {% block body %}
 
-<h2>My deck list <a href="{{ path('deck-create') }}" class="waves-effect waves-light btn blue darken-2"><i class="Large material-icons">add_box</i></a>
-</h2>
-<div style="display:flex; flex-wrap: wrap; justify-content: space-between;">
-{% if decks %}
-{% for deck in decks %}
-<div id="{{deck.id}}" style="max-width: 450px;">
-    <h3>{{deck.nom}}</h3>
-    <p>{{deck.description}}</p>
-    <div>
-        <a href="{{ path('deck-info',{iddeck: deck.id}) }}" class="blue darken-2 waves-effect btn"><i class="Large material-icons">info_outline</i></a>
-        <a href="{{ path('deck-add-card',{iddeck: deck.id}) }}" class="blue darken-2 waves-effect btn">Add Card</a>
-        <a class="red darken-3 btn deleteDeckBtn" id="deck{{deck.id}}"><i class="Large material-icons">delete</i></a>
+<div class="row">
+    <div class="containerDeckList">
+        <div class="col s12 m12">
+            <div class="profilDetails">
+                <div class="profilTitle">
+                    <h2>My deck list <a href="{{ path('deck-create') }}" class="white btn blueColor"><i class="Large material-icons">add_box</i></a>
+                    </h2>
+                </div>
+                <div class="profilRow flextestwithwrap">
+                    {% if decks %}
+                    {% for deck in decks %}
+                    <div id="{{deck.id}}" style="max-width: 450px;">
+                        <h3>{{deck.nom}}</h3>
+                        <p>{{deck.description}}</p>
+                        <div>
+                            <a href="{{ path('deck-info',{iddeck: deck.id}) }}" class="blue darken-2 waves-effect btn"><i class="Large material-icons">info_outline</i></a>
+                            <a href="{{ path('deck-add-card',{iddeck: deck.id}) }}" class="blue darken-2 waves-effect btn">Add Card</a>
+                            <a class="red darken-3 btn deleteDeckBtn" id="deck{{deck.id}}"><i class="Large material-icons">delete</i></a>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+                    {% else %}
+                    <h3>No deck</h3>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-{% endfor %}
-{% else %}
-<h3>No deck</h3>
-{% endif %}
-</div>
 {% endblock %}
 {% block javascripts %}
 {{ parent() }} 
