@@ -43,7 +43,7 @@
                         <li id="{{deck.id}}">
                             {{ deck.nom }} 
                             <div>
-                                <a href="{{ path('deck-info',{iddeck: deck.id}) }}" class="blue darken-2 waves-effect btn"><i class="Large material-icons">info_outline</i></a>
+                                <a href="{{ path('deck-info',{iddeck: deck.id}) }}" class="blue darken-2 waves-effect btn">Details</a>
                                 <a href="{{ path('deck-add-card',{iddeck: deck.id}) }}" class="blue darken-2 waves-effect btn">Add Card</a>
                                 <a class="red darken-3 btn deleteDeckBtn" id="deck{{deck.id}}"><i class="Large material-icons">delete</i></a>
                             </div>
